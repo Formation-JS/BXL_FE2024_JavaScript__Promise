@@ -84,7 +84,7 @@ async function servirLaViande() {
 //? - V1 Enchainnement des méthodes avec "await"
 // Non optimisé car chaque tache se lance les une après les autres...
 async function preparerLeRepas_v1() {
-    console.log("Debut de la préparation du repas");
+    console.warn("Debut de la préparation du repas");
     try {
         await sortirApero();
         await prepareCoffee();
@@ -94,10 +94,10 @@ async function preparerLeRepas_v1() {
         await chaufferLaPoele();
         await faireCuireLaViande();
         await servirLaViande();
-        console.log('Le repas est prêt !');
+        console.warn('Le repas est prêt !');
     } catch (error) {
         console.error(error)
-        console.log('Le repas est foiré !');
+        console.warn('Le repas est foiré !');
     }
 }
 // preparerLeRepas_v1() ;
@@ -106,7 +106,7 @@ async function preparerLeRepas_v1() {
 //? - V2 Enchainnement des méthodes des promesse
 // Non optimisé - Même problematique
 function preparerLeRepas_v2() {
-    console.log("Debut de la préparation du repas");
+    console.warn("Debut de la préparation du repas");
     return sortirApero
         .then(() => prepareCoffee())
         .then(() => servirCoffee())
@@ -115,10 +115,10 @@ function preparerLeRepas_v2() {
         .then(chaufferLaPoele)
         .then(faireCuireLaViande)
         .then(servirLaViande)
-        .then(() => console.log('Le repas est prêt !'))
+        .then(() => console.warn('Le repas est prêt !'))
         .catch((error) => {
             console.error(error)
-            console.log('Le repas est foiré !');
+            console.warn('Le repas est foiré !');
         });
 }
 //preparerLeRepas_v2();
