@@ -15,6 +15,12 @@ function randomNumberGenerator(min, max, decimal = 2) {
 
 
 //! Les méthodes asynchrone
+async function sortirApero() {
+    console.log(`Les apéro sont en préparation`);
+    await delay(3_000);
+    console.log(`L'apéro est prêt !`);
+}
+
 async function prepareCoffee() {
     console.log(`Le café est en cours de préparation`);
     await delay(25_000);
@@ -50,12 +56,6 @@ async function chaufferLaPoele() {
     console.log("La poele est chaude !");
 }
 
-async function servirLaViande() {
-    console.log("On sert la viande !");
-    await delay(10_000);
-    console.log("La viand est servie !");
-}
-
 async function faireCuireLaViande() {
     /// faire cuire la viande
     console.log("On cuit la viande");
@@ -68,6 +68,12 @@ async function faireCuireLaViande() {
     console.log('La viande est bien cuit.');
 }
 
+async function servirLaViande() {
+    console.log("On sert la viande !");
+    await delay(10_000);
+    console.log("La viand est servie !");
+}
+
 
 //! Utilisation des méthodes async
 //? - V1 Enchainnement des méthodes avec "await"
@@ -75,6 +81,7 @@ async function faireCuireLaViande() {
 async function preparerLeRepas_v1() {
     console.log("Debut de la préparation du repas");
     try {
+        await sortirApero();
         await prepareCoffee();
         await servirCoffee();
         await prepareSalade('tomate', 'salade', 'oignon');
@@ -95,7 +102,8 @@ async function preparerLeRepas_v1() {
 // Non optimisé - Même problematique
 function preparerLeRepas_v2() {
     console.log("Debut de la préparation du repas");
-    return prepareCoffee()
+    return sortirApero
+        .then(() => prepareCoffee())
         .then(() => servirCoffee())
         .then(() => prepareSalade('tomate', 'salade', 'oignon'))
         .then(() => ajouterLaVinegrette())
