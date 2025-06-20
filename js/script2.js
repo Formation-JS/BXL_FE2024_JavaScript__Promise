@@ -122,3 +122,34 @@ function preparerLeRepas_v2() {
         });
 }
 //preparerLeRepas_v2();
+
+
+//? - V3 Traitement en parallele
+async function preparerLeRepas_v3() {
+
+    const methodeCafe = async () => {
+        await prepareCoffee();
+        await servirCoffee();
+    };
+
+    try {
+        console.warn("Debut de la préparation du repas");
+
+        const promesseCafe = methodeCafe();
+        const promesseSalade = prepareSalade('tomate', 'salade', 'oignon')
+            .then(() => ajouterLaVinegrette());
+        const promesseViande = (async () => {
+            await chaufferLaPoele();
+            await faireCuireLaViande();
+            await servirLaViande();
+        })(); // Fonction imédiatement executé
+
+        await Promise.all([sortirApero(), promesseCafe, promesseSalade, promesseViande])
+        console.warn('Le repas est prêt !');
+    }
+    catch (error) {
+        console.error(error);
+        console.warn('Le repas estr foiré !');
+    }
+}
+preparerLeRepas_v3();
