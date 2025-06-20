@@ -70,7 +70,7 @@ async function faireCuireLaViande() {
 
 
 //! Utilisation des méthodes async
-//? - Enchainnement des méthodes avec "await"
+//? - V1 Enchainnement des méthodes avec "await"
 // Non optimisé car chaque tache se lance les une après les autres...
 async function preparerLeRepas_v1() {
     console.log("Debut de la préparation du repas");
@@ -88,4 +88,24 @@ async function preparerLeRepas_v1() {
         console.log('Le repas est foiré !');
     }
 }
-preparerLeRepas_v1() ;
+// preparerLeRepas_v1() ;
+
+
+//? - V2 Enchainnement des méthodes des promesse
+// Non optimisé - Même problematique
+function preparerLeRepas_v2() {
+    console.log("Debut de la préparation du repas");
+    return prepareCoffee()
+        .then(() => servirCoffee())
+        .then(() => prepareSalade('tomate', 'salade', 'oignon'))
+        .then(() => ajouterLaVinegrette())
+        .then(chaufferLaPoele)
+        .then(faireCuireLaViande)
+        .then(servirLaViande)
+        .then(() => console.log('Le repas est prêt !'))
+        .catch((error) => {
+            console.error(error)
+            console.log('Le repas est foiré !');
+        });
+}
+//preparerLeRepas_v2();
