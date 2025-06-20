@@ -22,6 +22,11 @@ async function sortirApero() {
 }
 
 async function prepareCoffee() {
+    if(randomNumberGenerator(0, 100, 0) == 1) {
+        await delay(1_000);
+        throw new Error('Machine à café HS (╯°□°）╯︵ ┻━┻ ')
+    }
+    
     console.log(`Le café est en cours de préparation`);
     await delay(25_000);
     console.log(`Le café est prêt !`);
